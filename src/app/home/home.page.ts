@@ -26,8 +26,9 @@ export class HomePage {
     const e2 = new ReorderEintrag( "Android von Google aufgekauft", 2005);
     const e3 = new ReorderEintrag( "iPhone kommt auf den Markt", 2007);
     const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt", 2008);
+    const e5 = new ReorderEintrag( "iPad kommt auf den Markt", 2010);
 
-    this.reorderListe = [ e2, e4, e1, e3 ];
+    this.reorderListe = [ e2, e4, e5,  e1, e3 ];
   }
 
   public onReihenfolgeAenderung(event: CustomEvent<ItemReorderEventDetail>) {
