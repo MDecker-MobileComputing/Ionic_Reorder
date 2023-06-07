@@ -16,6 +16,10 @@ export class HomePage {
     this.listeInitialisieren();
   }
 
+  /**
+   * Member-Variable mit Liste der historischen Ereignisse, die zu sortieren sind,
+   * wird in zufälliger Reihenfolge befüllt. 
+   */
   private listeInitialisieren() { 
 
     const e1 = new ReorderEintrag( "Android Inc. gegründet", 2003);
