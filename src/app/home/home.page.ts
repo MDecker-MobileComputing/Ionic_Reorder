@@ -18,24 +18,55 @@ export class HomePage {
 
   /**
    * Member-Variable mit Liste der historischen Ereignisse, die zu sortieren sind,
-   * wird in zufälliger Reihenfolge befüllt. 
+   * wird in zufälliger Reihenfolge befüllt.
    */
   private listeInitialisieren() { 
 
     const e1 = new ReorderEintrag( "Android Inc. gegründet", 2003);
-    const e2 = new ReorderEintrag( "Android von Google aufgekauft", 2005);
+    const e2 = new ReorderEintrag( "Android Inc. von Google aufgekauft", 2005);
     const e3 = new ReorderEintrag( "iPhone kommt auf den Markt", 2007);
     const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt", 2008);
     const e5 = new ReorderEintrag( "iPad kommt auf den Markt", 2010);
 
-    this.reorderListe = [ e2, e4, e5,  e1, e3 ];
+    this.reorderListe = [ e2, e4, e5, e1, e3 ];
   }
 
+  /**
+   * Event-Handler für Reihenfolge-Änderung mit Reorder-Element.
+   */
   public onReihenfolgeAenderung(event: CustomEvent<ItemReorderEventDetail>) {
 
-    console.log('Dragged from index', event.detail.from, 'to', event.detail.to);
+    console.log('Element von index', event.detail.from, 'nach', event.detail.to, 'gezogen.');
+
+    const draggedItem = this.reorderListe.splice(event.detail.from,1)[0];
+    this.reorderListe.splice(event.detail.to,0,draggedItem)
 
     event.detail.complete();
   } 
+
+  public onUeberpruefenButton() {
+
+    let jahrVorherigesEreignis = -1;
+    for (let i = 0; i < this.reorderListe.length; i++) {
+
+      const eintrag = this.reorderListe[i];
+      const ereignis = eintrag.ereignis;
+      const jahr     = eintrag.jahr;
+
+      console.log(`Index ${i}: ${ereignis}`);
+
+      if (i > 0) {
+
+        if (jahrVorherigesEreignis > jahr) {
+
+          console.log("Falsche Reihenfolge!");
+          return;
+        }
+      }
+      jahrVorherigesEreignis = jahr;
+    }
+
+    console.log("Richtige Reihenfolge!");
+  }
 
 }
