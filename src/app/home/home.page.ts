@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ItemReorderEventDetail } from '@ionic/angular';
 import { ReorderEintrag } from '../reorder-eintrag';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +23,8 @@ export class HomePage {
    */
   private listeInitialisieren() { 
 
-    const e1 = new ReorderEintrag( "Android Inc. gegründet", 2003);
-    const e2 = new ReorderEintrag( "Android Inc. von Google aufgekauft", 2005);
+    const e1 = new ReorderEintrag( "Firma \"Android Inc.\" gegründet", 2003);
+    const e2 = new ReorderEintrag( "Firma \"Android Inc.\" von Google aufgekauft", 2005);
     const e3 = new ReorderEintrag( "iPhone kommt auf den Markt", 2007);
     const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt", 2008);
     const e5 = new ReorderEintrag( "iPad kommt auf den Markt", 2010);
@@ -44,8 +45,13 @@ export class HomePage {
     event.detail.complete();
   } 
 
+  /**
+   * Event-Handler für Button: überprüft, ob die aktuell gewählte Reihenfolge 
+   * richtig ist.
+   */
   public onUeberpruefenButton() {
 
+    let reihenfolgeRichtig = true;
     let jahrVorherigesEreignis = -1;
     for (let i = 0; i < this.reorderListe.length; i++) {
 
@@ -54,19 +60,19 @@ export class HomePage {
       const jahr     = eintrag.jahr;
 
       console.log(`Index ${i}: ${ereignis}`);
-
+      
       if (i > 0) {
 
         if (jahrVorherigesEreignis > jahr) {
 
-          console.log("Falsche Reihenfolge!");
-          return;
+          reihenfolgeRichtig = false;
+          break;
         }
       }
       jahrVorherigesEreignis = jahr;
     }
 
-    console.log("Richtige Reihenfolge!");
+    console.log("Richtige Reihenfolge: " + reihenfolgeRichtig);
   }
 
 }
