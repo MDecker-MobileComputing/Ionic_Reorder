@@ -2,14 +2,14 @@
 
 <br>
 
-Simple [Ionic](https://ionicframework.com/) app with Angular that demonstrates usage of the
-UI component [ion-reorder](https://ionicframework.com/docs/api/reorder).
+Simple [Ionic](https://ionicframework.com/) app with Angular that demonstrates the 
+usage of the UI component [ion-reorder](https://ionicframework.com/docs/api/reorder).
 
 <br>
 
 ----
 
-## Screenshot ##
+## Screenshots ##
 
 <br>
 
