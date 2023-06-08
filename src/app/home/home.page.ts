@@ -10,6 +10,7 @@ import { LoadingController } from '@ionic/angular';
 })
 export class HomePage {
 
+  /** Array mit Einträgen, die in richtige Reihenfolge zu bringen sind. */
   public reorderListe : Array<ReorderEintrag> = [];
 
   constructor(private loadingCtrl: LoadingController) {
@@ -46,8 +47,8 @@ export class HomePage {
   } 
 
   /**
-   * Event-Handler für Button: überprüft, ob die aktuell gewählte Reihenfolge 
-   * richtig ist.
+   * Event-Handler für Button: überprüft, ob die aktuell gewählte 
+   * Reihenfolge richtig ist.
    */
   public async onUeberpruefenButton() {
 
@@ -55,7 +56,7 @@ export class HomePage {
     let jahrVorherigesEreignis = -1;
     for (let i = 0; i < this.reorderListe.length; i++) {
 
-      const eintrag = this.reorderListe[i];
+      const eintrag  = this.reorderListe[i];
       const ereignis = eintrag.ereignis;
       const jahr     = eintrag.jahr;
 
@@ -79,6 +80,8 @@ export class HomePage {
         message: "Überprüfe Antwort ..."
     });  
     ladeAnzeige.present();
+
+    console.log("ladeAnzeige: " + ladeAnzeige.constructor.name);
 
     setTimeout(function() {
 
