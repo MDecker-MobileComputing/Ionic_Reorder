@@ -32,7 +32,9 @@ export class HomePage {
   }
 
   /**
-   * Durchmischt Member-Variable mit `ReorderEintrag`-Elementen.
+   * Durchmischt Member-Variable mit `ReorderEintrag`-Elementen. Hierzu wird
+   * dem Attribut `zufallszahl` der `ReorderEintrag`-Elemente ein zufälliger
+   * Wert zugewiesen, anhand dessen diese dann sortiert werden.
    */
   private mischen() { 
 
