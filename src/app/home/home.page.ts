@@ -20,22 +20,37 @@ export class HomePage {
   constructor(private loadingCtrl: LoadingController,
               private alertController: AlertController) {
 
-    this.listeInitialisieren();
+    const e1 = new ReorderEintrag( "Firma 'Android Inc.' gegründet"             , 2003 );
+    const e2 = new ReorderEintrag( "Firma 'Android Inc.' von Google aufgekauft" , 2005 );
+    const e3 = new ReorderEintrag( "iPhone kommt auf den Markt"                 , 2007 );
+    const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt"             , 2008 );
+    const e5 = new ReorderEintrag( "iPad kommt auf den Markt"                   , 2010 );
+            
+    this.reorderListe = [ e1, e2, e3, e4, e5 ];
+
+    this.mischen();
   }
 
   /**
-   * Member-Variable mit Liste der historischen Ereignisse, die zu sortieren sind,
-   * wird in zufälliger Reihenfolge befüllt.
+   * Durchmischt Member-Variable mit `ReorderEintrag`-Elementen.
    */
-  private listeInitialisieren() { 
+  private mischen() { 
 
-    const e1 = new ReorderEintrag( "Firma 'Android Inc.' gegründet", 2003);
-    const e2 = new ReorderEintrag( "Firma 'Android Inc.' von Google aufgekauft", 2005);
-    const e3 = new ReorderEintrag( "iPhone kommt auf den Markt", 2007);
-    const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt", 2008);
-    const e5 = new ReorderEintrag( "iPad kommt auf den Markt", 2010);
+    for (let i = 0; i < this.reorderListe.length; i++) {
 
-    this.reorderListe = [ e2, e4, e5, e1, e3 ];
+      this.reorderListe[i].neueZufallszahl();
+    }
+
+    this.reorderListe.sort((e1,e2) => {
+      if (e1.zufallszahl < e2.zufallszahl) {
+
+        return -1;
+
+      } else {
+
+        return 1;
+      }
+    });
   }
 
   /**
@@ -81,6 +96,7 @@ export class HomePage {
           break;
         }
       }
+
       jahrVorherigesEreignis = jahr;
     }
 
@@ -91,16 +107,37 @@ export class HomePage {
     });  
     ladeAnzeige.present();
 
-    setTimeout(() => {
+    setTimeout(async () => {
 
       ladeAnzeige.dismiss();
-      this.onUeberpruefenFertig(reihenfolgeRichtig);
+      await this.onUeberpruefenFertig(reihenfolgeRichtig);
       
     }, 1500); // 1500ms = 1,5sek
   }
 
-  private onUeberpruefenFertig(richtigeReihenfolge: boolean) {
+  /** 
+   * Methode wird aufgerufen, wenn Wartezeit für "Bewertung" 
+   * der Lösung vorüber ist.
+   */
+  private async onUeberpruefenFertig(richtigeReihenfolge: boolean) {
 
+    const dialogTitel = richtigeReihenfolge ? "Richtig!" : "Leider falsch!";    
+
+    const jaButton = { text: "Ja", 
+                       handler: () => { this.mischen(); } 
+                     };
+
+    const neinButton = { text: "Nein", 
+                         role: "Cancel" 
+                       };
+
+    const alert = await this.alertController.create({
+      header: dialogTitel,
+      message: "Sollen die Ereignisse durchmischt wieder werden?",
+      backdropDismiss: false,
+      buttons: [ jaButton, neinButton ]
+    });
+    alert.present();
   }
 
 }
