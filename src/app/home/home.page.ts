@@ -68,7 +68,7 @@ export class HomePage {
     console.log(`Element "${ereignis}" von Index ${indexStart} nach ${indexZiel} gezogen.`);
 
     const draggedItem = this.reorderListe.splice(indexStart, 1)[0];
-    this.reorderListe.splice(indexZiel, 0, draggedItem)
+    this.reorderListe.splice(indexZiel, 0, draggedItem);
 
     event.detail.complete();
   } 
