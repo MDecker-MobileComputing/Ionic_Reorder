@@ -12,7 +12,7 @@ export class HomePage {
 
   public reorderListe : Array<ReorderEintrag> = [];
 
-  constructor() {
+  constructor(private loadingCtrl: LoadingController) {
 
     this.listeInitialisieren();
   }
@@ -49,7 +49,7 @@ export class HomePage {
    * Event-Handler für Button: überprüft, ob die aktuell gewählte Reihenfolge 
    * richtig ist.
    */
-  public onUeberpruefenButton() {
+  public async onUeberpruefenButton() {
 
     let reihenfolgeRichtig = true;
     let jahrVorherigesEreignis = -1;
@@ -73,6 +73,17 @@ export class HomePage {
     }
 
     console.log("Richtige Reihenfolge: " + reihenfolgeRichtig);
+
+
+    const ladeAnzeige = await this.loadingCtrl.create({
+        message: "Überprüfe Antwort ..."
+    });  
+    ladeAnzeige.present();
+
+    setTimeout(function() {
+
+      ladeAnzeige.dismiss();
+    }, 1500);
   }
 
 }
