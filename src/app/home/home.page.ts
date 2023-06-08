@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ItemReorderEventDetail } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { ReorderEintrag } from '../reorder-eintrag';
 import { LoadingController } from '@ionic/angular';
 
@@ -13,7 +14,11 @@ export class HomePage {
   /** Array mit Einträgen, die in richtige Reihenfolge zu bringen sind. */
   public reorderListe : Array<ReorderEintrag> = [];
 
-  constructor(private loadingCtrl: LoadingController) {
+  /**
+   * Konstruktor für Dependency Injection, initialisiert auch Liste.
+   */
+  constructor(private loadingCtrl: LoadingController,
+              private alertController: AlertController) {
 
     this.listeInitialisieren();
   }
@@ -24,8 +29,8 @@ export class HomePage {
    */
   private listeInitialisieren() { 
 
-    const e1 = new ReorderEintrag( "Firma \"Android Inc.\" gegründet", 2003);
-    const e2 = new ReorderEintrag( "Firma \"Android Inc.\" von Google aufgekauft", 2005);
+    const e1 = new ReorderEintrag( "Firma 'Android Inc.' gegründet", 2003);
+    const e2 = new ReorderEintrag( "Firma 'Android Inc.' von Google aufgekauft", 2005);
     const e3 = new ReorderEintrag( "iPhone kommt auf den Markt", 2007);
     const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt", 2008);
     const e5 = new ReorderEintrag( "iPad kommt auf den Markt", 2010);
@@ -38,10 +43,15 @@ export class HomePage {
    */
   public onReihenfolgeAenderung(event: CustomEvent<ItemReorderEventDetail>) {
 
-    console.log('Element von index', event.detail.from, 'nach', event.detail.to, 'gezogen.');
+    const indexStart = event.detail.from;
+    const indexZiel  = event.detail.to;
 
-    const draggedItem = this.reorderListe.splice(event.detail.from,1)[0];
-    this.reorderListe.splice(event.detail.to,0,draggedItem)
+    const ereignis = this.reorderListe[indexStart].ereignis;
+
+    console.log(`Element "${ereignis}" von Index ${indexStart} nach ${indexZiel} gezogen.`);
+
+    const draggedItem = this.reorderListe.splice(indexStart, 1)[0];
+    this.reorderListe.splice(indexZiel, 0, draggedItem)
 
     event.detail.complete();
   } 
@@ -52,8 +62,9 @@ export class HomePage {
    */
   public async onUeberpruefenButton() {
 
-    let reihenfolgeRichtig = true;
+    let reihenfolgeRichtig     = true;
     let jahrVorherigesEreignis = -1;
+
     for (let i = 0; i < this.reorderListe.length; i++) {
 
       const eintrag  = this.reorderListe[i];
@@ -75,18 +86,21 @@ export class HomePage {
 
     console.log("Richtige Reihenfolge: " + reihenfolgeRichtig);
 
-
     const ladeAnzeige = await this.loadingCtrl.create({
         message: "Überprüfe Antwort ..."
     });  
     ladeAnzeige.present();
 
-    console.log("ladeAnzeige: " + ladeAnzeige.constructor.name);
-
-    setTimeout(function() {
+    setTimeout(() => {
 
       ladeAnzeige.dismiss();
-    }, 1500);
+      this.onUeberpruefenFertig(reihenfolgeRichtig);
+      
+    }, 1500); // 1500ms = 1,5sek
+  }
+
+  private onUeberpruefenFertig(richtigeReihenfolge: boolean) {
+
   }
 
 }
