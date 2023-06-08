@@ -135,7 +135,7 @@ export class HomePage {
 
     const alert = await this.alertController.create({
       header: dialogTitel,
-      message: "Sollen die Ereignisse durchmischt wieder werden?",
+      message: "Sollen die Ereignisse durchmischt werden?",
       backdropDismiss: false,
       buttons: [ jaButton, neinButton ]
     });

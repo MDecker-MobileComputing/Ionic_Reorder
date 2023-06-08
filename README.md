@@ -9,6 +9,16 @@ UI component [ion-reorder](https://ionicframework.com/docs/api/reorder).
 
 ----
 
+## Screenshot ##
+
+<br>
+
+![Screenshot 1](screenshot_1.png) &nbsp; ![Screenshot 2](screenshot_2.png)
+
+<br>
+
+----
+
 ## License ##
 
 <br>
