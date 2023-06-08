@@ -7,13 +7,14 @@
 <ion-content [fullscreen]="true" class="ion-padding">
 
   <p>
-    Bringen Sie die folgenden historische Ereignisse in die richtige Reihenfolge,
+    Bringen Sie die folgenden historischen Ereignisse in die richtige Reihenfolge,
     so dass das früheste Ereignis an erster Stelle steht.
   </p>
 
   <ion-list>
 
-    <ion-reorder-group [disabled]="false" (ionItemReorder)="onReihenfolgeAenderung($any($event))">
+    <ion-reorder-group [disabled]="false"
+                       (ionItemReorder)="onReihenfolgeAenderung($any($event))">
 
       <ion-item *ngFor="let eintrag of reorderListe">
         <ion-label>{{ eintrag.ereignis }}</ion-label>
@@ -26,6 +27,7 @@
 
   &nbsp;
 
-  <ion-button expand="block" (click)="onUeberpruefenButton()">Überprüfen!</ion-button>
+  <ion-button expand="block"
+             (click)="onUeberpruefenButton()">Überprüfen!</ion-button>
 
 </ion-content>
