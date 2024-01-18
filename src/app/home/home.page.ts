@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { ReorderEintrag } from '../reorder-eintrag';
 import { LoadingController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -25,11 +26,12 @@ export class HomePage {
     const e3 = new ReorderEintrag( "iPhone kommt auf den Markt"                 , 2007 );
     const e4 = new ReorderEintrag( "Erstes Android-Gerät auf Markt"             , 2008 );
     const e5 = new ReorderEintrag( "iPad kommt auf den Markt"                   , 2010 );
-            
+
     this.reorderListe = [ e1, e2, e3, e4, e5 ];
 
     this.mischen();
   }
+
 
   /**
    * Durchmischt Member-Variable mit `ReorderEintrag`-Elementen. Hierzu wird
@@ -55,6 +57,7 @@ export class HomePage {
     });
   }
 
+
   /**
    * Event-Handler für Reihenfolge-Änderung mit Reorder-Element.
    */
@@ -71,10 +74,11 @@ export class HomePage {
     this.reorderListe.splice(indexZiel, 0, draggedItem);
 
     event.detail.complete();
-  } 
+  }
+
 
   /**
-   * Event-Handler für Button: überprüft, ob die aktuell gewählte 
+   * Event-Handler für Button: überprüft, ob die aktuell gewählte
    * Reihenfolge richtig ist.
    */
   public async onUeberpruefenButton() {
@@ -89,7 +93,7 @@ export class HomePage {
       const jahr     = eintrag.jahr;
 
       console.log(`Index ${i}: ${ereignis}`);
-      
+
       if (i > 0) {
 
         if (jahrVorherigesEreignis > jahr) {
@@ -106,31 +110,32 @@ export class HomePage {
 
     const ladeAnzeige = await this.loadingCtrl.create({
         message: "Überprüfe Antwort ..."
-    });  
+    });
     ladeAnzeige.present();
 
     setTimeout(async () => {
 
       ladeAnzeige.dismiss();
       await this.onUeberpruefenFertig(reihenfolgeRichtig);
-      
+
     }, 1500); // 1500ms = 1,5sek
   }
 
-  /** 
-   * Methode wird aufgerufen, wenn Wartezeit für "Bewertung" 
+
+  /**
+   * Methode wird aufgerufen, wenn Wartezeit für "Bewertung"
    * der Lösung vorüber ist.
    */
   private async onUeberpruefenFertig(richtigeReihenfolge: boolean) {
 
-    const dialogTitel = richtigeReihenfolge ? "Richtig!" : "Leider falsch!";    
+    const dialogTitel = richtigeReihenfolge ? "Richtig!" : "Leider falsch!";
 
-    const jaButton = { text: "Ja", 
-                       handler: () => { this.mischen(); } 
+    const jaButton = { text: "Ja",
+                       handler: () => { this.mischen(); }
                      };
 
-    const neinButton = { text: "Nein", 
-                         role: "Cancel" 
+    const neinButton = { text: "Nein",
+                         role: "Cancel"
                        };
 
     const alert = await this.alertController.create({
