@@ -40,12 +40,12 @@ export class HomePage {
    */
   private mischen() { 
 
-    for (let i = 0; i < this.reorderListe.length; i++) {
+    for ( let i = 0; i < this.reorderListe.length; i++ ) {
 
       this.reorderListe[i].neueZufallszahl();
     }
 
-    this.reorderListe.sort((e1,e2) => {
+    this.reorderListe.sort( (e1,e2) => {
       if (e1.zufallszahl < e2.zufallszahl) {
 
         return -1;
@@ -66,12 +66,12 @@ export class HomePage {
     const indexStart = event.detail.from;
     const indexZiel  = event.detail.to;
 
-    const ereignis = this.reorderListe[indexStart].ereignis;
+    const ereignis = this.reorderListe[ indexStart ].ereignis;
 
     console.log(`Element "${ereignis}" von Index ${indexStart} nach ${indexZiel} gezogen.`);
 
-    const draggedItem = this.reorderListe.splice(indexStart, 1)[0];
-    this.reorderListe.splice(indexZiel, 0, draggedItem);
+    const draggedItem = this.reorderListe.splice( indexStart, 1 )[0];
+    this.reorderListe.splice( indexZiel, 0, draggedItem );
 
     event.detail.complete();
   }
@@ -86,7 +86,7 @@ export class HomePage {
     let reihenfolgeRichtig     = true;
     let jahrVorherigesEreignis = -1;
 
-    for (let i = 0; i < this.reorderListe.length; i++) {
+    for ( let i = 0; i < this.reorderListe.length; i++ ) {
 
       const eintrag  = this.reorderListe[i];
       const ereignis = eintrag.ereignis;
@@ -94,9 +94,9 @@ export class HomePage {
 
       console.log(`Index ${i}: ${ereignis}`);
 
-      if (i > 0) {
+      if ( i > 0 ) {
 
-        if (jahrVorherigesEreignis > jahr) {
+        if ( jahrVorherigesEreignis > jahr ) {
 
           reihenfolgeRichtig = false;
           break;
@@ -106,17 +106,17 @@ export class HomePage {
       jahrVorherigesEreignis = jahr;
     }
 
-    console.log("Richtige Reihenfolge: " + reihenfolgeRichtig);
+    console.log ("Richtige Reihenfolge: " + reihenfolgeRichtig );
 
     const ladeAnzeige = await this.loadingCtrl.create({
         message: "Überprüfe Antwort ..."
     });
     ladeAnzeige.present();
 
-    setTimeout(async () => {
+    setTimeout( async () => {
 
       ladeAnzeige.dismiss();
-      await this.onUeberpruefenFertig(reihenfolgeRichtig);
+      await this.onUeberpruefenFertig( reihenfolgeRichtig );
 
     }, 1500); // 1500ms = 1,5sek
   }
@@ -126,7 +126,7 @@ export class HomePage {
    * Methode wird aufgerufen, wenn Wartezeit für "Bewertung"
    * der Lösung vorüber ist.
    */
-  private async onUeberpruefenFertig(richtigeReihenfolge: boolean) {
+  private async onUeberpruefenFertig( richtigeReihenfolge: boolean ) {
 
     const dialogTitel = richtigeReihenfolge ? "Richtig!" : "Leider falsch!";
 
