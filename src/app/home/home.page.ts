@@ -9,6 +9,7 @@ import { LoadingController } from '@ionic/angular';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: false
 })
 export class HomePage {
 
@@ -118,7 +119,7 @@ export class HomePage {
       ladeAnzeige.dismiss();
       await this.onUeberpruefenFertig( reihenfolgeRichtig );
 
-    }, 1500); // 1500ms = 1,5sek
+    }, 1500); // 1.500ms = 1,5sek
   }
 
 
