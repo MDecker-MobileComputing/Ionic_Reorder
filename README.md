@@ -1,4 +1,4 @@
-# Ionic: Reorder:Demo #
+# Ionic: Reorder-Demo #
 
 <br>
 
