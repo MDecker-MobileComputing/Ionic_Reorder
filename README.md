@@ -1,9 +1,8 @@
-# Reorder Demo #
+# Ionic: Reorder:Demo #
 
 <br>
 
-Simple [Ionic](https://ionicframework.com/) app with Angular that demonstrates the 
-usage of the UI component [ion-reorder](https://ionicframework.com/docs/api/reorder).
+Einfache [Ionic](https://ionicframework.com/)-App mit Angular, die die Verwendung der UI-Komponente [ion-reorder](https://ionicframework.com/docs/api/reorder) demonstriert.
 
 <br>
 
